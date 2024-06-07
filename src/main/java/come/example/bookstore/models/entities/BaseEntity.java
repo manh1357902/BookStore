@@ -1,4 +1,4 @@
-package come.example.bookstore.entities;
+package come.example.bookstore.models.entities;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

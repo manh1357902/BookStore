@@ -1,5 +1,6 @@
-package come.example.bookstore.entities;
+package come.example.bookstore.models.entities;
 
+import come.example.bookstore.models.entities.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,7 +9,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "books")
 @Data
-public class Book extends BaseEntity{
+public class Book extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
