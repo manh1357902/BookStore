@@ -9,17 +9,17 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
+@Table(name = "categories")
 @Data
-@Table(name = "roles")
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
-public class Role {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
-    @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<User> users;
+    @ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Book> books;
 }

@@ -2,9 +2,11 @@ package come.example.bookstore.models.entities;
 
 import come.example.bookstore.models.entities.BaseEntity;
 import come.example.bookstore.models.entities.Role;
+import come.example.bookstore.models.enums.GenderEnum;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -15,17 +17,29 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "users")
+@AllArgsConstructor
+@NoArgsConstructor
+@SuperBuilder
 public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false, unique = true)
+    private String username;
+    @Column(nullable = false)
+    private String password;
+    @Column(nullable = false)
     private String fullName;
+    @Column(nullable = false, unique = true)
     private String phone;
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private GenderEnum gender;
     private String address;
+    @Column(nullable = false)
+    private Boolean isActive;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dob;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "user_role",
         joinColumns = @JoinColumn(name = "user_id"),
